@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
-    maxWidth: '40ch',
+    maxWidth: 300,
   },
   languageBox: {
     backgroundColor: theme.colors.primary,
