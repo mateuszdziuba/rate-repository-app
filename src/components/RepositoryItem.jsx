@@ -1,7 +1,7 @@
-import { Image, StyleSheet, View } from 'react-native'
-import theme from '../theme'
-import Stat from './Stat'
-import Text from './Text'
+import { Image, StyleSheet, View } from 'react-native';
+import theme from '../theme';
+import Stat from './Stat';
+import Text from './Text';
 
 const styles = StyleSheet.create({
   box: {
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
   },
-})
+});
 
 const RepositoryItem = (props) => {
   const {
@@ -48,14 +48,14 @@ const RepositoryItem = (props) => {
     ratingAverage,
     reviewCount,
     ownerAvatarUrl,
-  } = props
+  } = props;
 
   return (
     <View style={styles.box}>
       <View style={styles.upperSection}>
         <Image source={{ uri: ownerAvatarUrl }} style={styles.image} />
         <View style={styles.innerUpperSection}>
-          <Text style={{ fontWeight: 600 }}>{fullName}</Text>
+          <Text style={{ fontWeight: '600' }}>{fullName}</Text>
           <Text color="secondary">{description}</Text>
           <View style={styles.languageBox}>
             <Text style={{ color: 'white' }}>{language}</Text>
@@ -69,7 +69,7 @@ const RepositoryItem = (props) => {
         <Stat label="Rating" count={ratingAverage} />
       </View>
     </View>
-  )
-}
+  );
+};
 
-export default RepositoryItem
+export default RepositoryItem;
