@@ -14,10 +14,10 @@ const ItemSeparator = () => <View style={styles.separator} />
 
 const RepositoryList = () => {
 
-  const { repositories } = useRepositories();
+  const { data } = useRepositories();
 
-  const repositoryNodes = repositories
-    ? repositories.edges.map(edge => edge.node)
+  const repositoryNodes = data
+    ? data.repositories.edges.map(edge => edge.node)
     : [];
 
   return (
