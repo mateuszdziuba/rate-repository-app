@@ -5,7 +5,9 @@ import { Route, Routes, Navigate } from 'react-router-native'
 
 import RepositoryList from './components/RepositoryList'
 import SignIn from './components/SignIn'
-import SingleRepository from './components/SingleRepository/SingleRepository'
+import SingleRepository from './components/SingleRepository'
+
+SingleRepository
 
 const styles = StyleSheet.create({
     container: {

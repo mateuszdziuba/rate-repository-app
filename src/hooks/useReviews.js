@@ -9,7 +9,7 @@ const useReviews = (id) => {
     })
 
     return {
-        reviews: data?.repository.reviews.edges,
+        reviews: data?.repository.reviews.edges.map((r) => r.node),
     }
 }
 
