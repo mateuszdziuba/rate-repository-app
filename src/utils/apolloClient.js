@@ -6,8 +6,6 @@ const httpLink = createHttpLink({
     uri: `${Constants.manifest.extra.apolloUri}:4000/graphql`,
 })
 
-console.log(Constants.manifest.extra.apolloUri)
-
 const createApolloClient = (authStorage) => {
     const authLink = setContext(async (_, { headers }) => {
         try {

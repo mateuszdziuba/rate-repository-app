@@ -33,9 +33,14 @@ const AppBar = () => {
                     <Text style={styles.menuItem}>Repositories</Text>
                 </Link>
                 {user?.me ? (
-                    <Pressable onPress={signOut}>
-                        <Text style={styles.menuItem}>Sign out</Text>
-                    </Pressable>
+                    <>
+                        <Link to="review">
+                            <Text style={styles.menuItem}>Create a review</Text>
+                        </Link>
+                        <Pressable onPress={signOut}>
+                            <Text style={styles.menuItem}>Sign out</Text>
+                        </Pressable>
+                    </>
                 ) : (
                     <Link to="signin">
                         <Text style={styles.menuItem}>Sign in</Text>

@@ -2,67 +2,81 @@ import { View, StyleSheet } from 'react-native'
 import { Formik } from 'formik'
 import FormikTextInput from '../FormikTextInput'
 import * as yup from 'yup'
-import useSignIn from '../../hooks/useSignIn'
-import { useNavigate } from 'react-router-native'
+import useCreateReview from '../../hooks/useCreateReview'
 import Button from '../Common/Button'
 
 const initialValues = {
-    username: '',
-    password: '',
+    ownerName: '',
+    repositoryName: '',
+    rating: undefined,
+    text: '',
 }
 
 const validationSchema = yup.object().shape({
-    username: yup.string().required('Username is required'),
-    password: yup.string().required('Password is required'),
+    ownerName: yup.string().required('Repository owner is required'),
+    repositoryName: yup.string().required('Repository name is required'),
+    rating: yup.number().min(0).max(100).required('Rating is required'),
+    text: yup.string(),
 })
 
 const styles = StyleSheet.create({
     container: {
         padding: 10,
+        backgroundColor: 'white',
     },
 })
 
-const SignInForm = ({ onSubmit }) => {
+const ReviewForm = ({ onSubmit }) => {
     return (
         <View style={styles.container}>
-            <FormikTextInput placeholder="Username" name="username" />
             <FormikTextInput
-                placeholder="Password"
-                name="password"
-                secureTextEntry={true}
+                placeholder="Repository owner name"
+                name="ownerName"
             />
-            <Button onPress={onSubmit} label="Sign in" />
+            <FormikTextInput
+                placeholder="Repository name"
+                name="repositoryName"
+            />
+            <FormikTextInput
+                placeholder="Rating between 0 and 100"
+                name="rating"
+            />
+            <FormikTextInput placeholder="Review" name="text" />
+            <Button onPress={onSubmit} label="Create a review" />
         </View>
     )
 }
 
-export const SignInContainer = ({ onSubmit }) => {
+export const ReviewContainer = ({ onSubmit }) => {
     return (
         <Formik
             initialValues={initialValues}
             onSubmit={onSubmit}
             validationSchema={validationSchema}
         >
-            {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
+            {({ handleSubmit }) => <ReviewForm onSubmit={handleSubmit} />}
         </Formik>
     )
 }
 
-const SignIn = () => {
-    const [signIn] = useSignIn()
-    const navigate = useNavigate()
+const Review = () => {
+    const [createReview] = useCreateReview()
 
     const onSubmit = async (values) => {
-        const { username, password } = values
+        const { ownerName, repositoryName, rating, text } = values
 
         try {
-            await signIn({ username, password })
-            navigate('/')
+            await createReview({
+                ownerName,
+                repositoryName,
+                rating: parseInt(rating),
+                text,
+            })
         } catch (e) {
             console.log(e)
         }
     }
-    return <SignInContainer onSubmit={onSubmit} />
+    return <ReviewContainer onSubmit={onSubmit} />
 }
 
-export default SignIn
+export default Review

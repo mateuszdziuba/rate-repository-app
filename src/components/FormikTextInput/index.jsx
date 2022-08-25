@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         borderColor: theme.colors.textSecondary,
         borderRadius: 5,
-        backgroundColor: 'white',
     },
     inputError: {
         borderColor: '#d73a4a',
