@@ -1,9 +1,9 @@
 import { View, StyleSheet, ScrollView, Pressable } from 'react-native'
 import { Link } from 'react-router-native'
 import Constants from 'expo-constants'
-import Text from './Text'
-import useUser from '../hooks/useUser'
-import useSignOut from '../hooks/useSignOut'
+import Text from '../Text'
+import useUser from '../../hooks/useUser'
+import useSignOut from '../../hooks/useSignOut'
 
 const styles = StyleSheet.create({
     container: {
