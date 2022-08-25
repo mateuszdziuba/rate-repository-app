@@ -1,6 +1,6 @@
 import { Image, StyleSheet, View } from 'react-native'
 import theme from '../../theme'
-import Stat from './Stat'
+import Stat from '../RepositoryList/Stat'
 import Text from '../Text'
 
 const styles = StyleSheet.create({
@@ -34,40 +34,33 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-evenly',
+        marginBottom: 10,
     },
 })
 
 const RepositoryItem = (props) => {
-    const {
-        // id,
-        fullName,
-        description,
-        language,
-        forksCount,
-        stargazersCount,
-        ratingAverage,
-        reviewCount,
-        ownerAvatarUrl,
-    } = props
-
     return (
         <View testID="repositoryItem" style={styles.box}>
             <View style={styles.upperSection}>
-                <Image source={{ uri: ownerAvatarUrl }} style={styles.image} />
+                <Image
+                    source={{ uri: props.ownerAvatarUrl }}
+                    style={styles.image}
+                />
                 <View style={styles.innerUpperSection}>
-                    <Text style={{ fontWeight: '600' }}>{fullName}</Text>
-                    <Text color="secondary">{description}</Text>
+                    <Text style={{ fontWeight: '600' }}>{props.fullName}</Text>
+                    <Text color="secondary">{props.description}</Text>
                     <View style={styles.languageBox}>
-                        <Text style={{ color: 'white' }}>{language}</Text>
+                        <Text style={{ color: 'white' }}>{props.language}</Text>
                     </View>
                 </View>
             </View>
             <View style={styles.lowerSection}>
-                <Stat label="Stars" count={stargazersCount} />
-                <Stat label="Forks" count={forksCount} />
-                <Stat label="Reviews" count={reviewCount} />
-                <Stat label="Rating" count={ratingAverage} />
+                <Stat label="Stars" count={props.stargazersCount} />
+                <Stat label="Forks" count={props.forksCount} />
+                <Stat label="Reviews" count={props.reviewCount} />
+                <Stat label="Rating" count={props.ratingAverage} />
             </View>
+            {props.button ?? ''}
         </View>
     )
 }

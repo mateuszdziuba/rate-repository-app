@@ -1,11 +1,10 @@
-import { Pressable, View, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { Formik } from 'formik'
-import Text from '../Text'
 import FormikTextInput from '../FormikTextInput'
 import * as yup from 'yup'
-import theme from '../../theme'
 import useSignIn from '../../hooks/useSignIn'
 import { useNavigate } from 'react-router-native'
+import Button from '../Button'
 
 const initialValues = {
     username: '',
@@ -21,16 +20,6 @@ const styles = StyleSheet.create({
     container: {
         padding: 10,
     },
-    button: {
-        backgroundColor: theme.colors.primary,
-        padding: 10,
-        borderRadius: 5,
-        textAlign: 'center',
-    },
-    buttonText: {
-        color: 'white',
-        textAlign: 'center',
-    },
 })
 
 const SignInForm = ({ onSubmit }) => {
@@ -42,9 +31,7 @@ const SignInForm = ({ onSubmit }) => {
                 name="password"
                 secureTextEntry={true}
             />
-            <Pressable onPress={onSubmit} style={styles.button}>
-                <Text style={styles.buttonText}>Sign in</Text>
-            </Pressable>
+            <Button onPress={onSubmit} label="Sign in" />
         </View>
     )
 }

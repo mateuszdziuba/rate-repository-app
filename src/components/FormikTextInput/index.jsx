@@ -15,6 +15,10 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         borderColor: theme.colors.textSecondary,
         borderRadius: 5,
+        backgroundColor: 'white',
+    },
+    inputError: {
+        borderColor: '#d73a4a',
     },
     inputWrapper: {
         marginBottom: 10,
@@ -33,7 +37,7 @@ const FormikTextInput = ({ name, ...props }) => {
                 value={field.value}
                 error={showError}
                 {...props}
-                style={styles.input}
+                style={[styles.input, showError && styles.inputError]}
             />
             {showError && <Text style={styles.errorText}>{meta.error}</Text>}
         </View>
