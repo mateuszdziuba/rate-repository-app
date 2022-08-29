@@ -86,8 +86,6 @@ const SingleRepository = () => {
     const { repository } = useRepository(repoId)
     const { reviews } = useReviews(repoId)
 
-    console.log(reviews)
-
     return (
         <FlatList
             data={reviews}
