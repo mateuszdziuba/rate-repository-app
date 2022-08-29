@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     innerLeft: {
         width: 30,
         height: 30,
-        borderRadius: '50%',
+        borderRadius: 15,
         borderColor: theme.colors.primary,
         borderWidth: 1,
         borderStyle: 'solid',
@@ -61,7 +61,9 @@ const ReviewItem = ({ review }) => {
     const { text, user, createdAt, rating } = review
     return (
         <View style={styles.box}>
-            <View style={styles.innerLeft}>{rating}</View>
+            <View style={styles.innerLeft}>
+                <Text>{rating}</Text>
+            </View>
             <View style={styles.innerRight}>
                 <Text fontWeight="bold" style={styles.user}>
                     {user.username}

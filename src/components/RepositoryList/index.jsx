@@ -1,20 +1,11 @@
-import { FlatList, Pressable, StyleSheet, TextInput } from 'react-native'
+import { FlatList, Pressable, TextInput, View } from 'react-native'
 import RepositoryItem from '../RepositoryItem'
 import useRepositories from '../../hooks/useRepositories'
 import { useNavigate } from 'react-router-native'
 import ItemSeparator from '../Common/ItemSeparator'
-import React, { useState, useRef } from 'react'
-import Text from '../Text'
+import React, { useState } from 'react'
 import { Picker } from '@react-native-picker/picker'
-import { View } from 'react-native-web'
 import { useDebounce } from 'use-debounce'
-
-const styles = StyleSheet.create({
-    header: {
-        height: 30,
-        padding: 10,
-    },
-})
 
 const orderingPrinciples = [
     {
@@ -35,7 +26,7 @@ const RepositoryListHeader = ({
     searchKeyword,
     setSearchKeyword,
     order,
-    open,
+    setOrder,
 }) => (
     <View>
         <TextInput
@@ -46,24 +37,27 @@ const RepositoryListHeader = ({
             value={searchKeyword}
             onChangeText={setSearchKeyword}
         />
-        <Pressable style={styles.header} onPress={open}>
-            <Text>
-                {orderingPrinciples.find((op) => op.value === order).label}
-            </Text>
-        </Pressable>
+        <Picker
+            selectedValue={order}
+            onValueChange={(itemValue) => setOrder(itemValue)}
+        >
+            {orderingPrinciples.map((op) => (
+                <Picker.Item key={op.label} label={op.label} value={op.value} />
+            ))}
+        </Picker>
     </View>
 )
 
 export class RepositoryListContainer extends React.Component {
     renderHeader = () => {
-        const { searchKeyword, setSearchKeyword, order, open } = this.props
+        const { searchKeyword, setSearchKeyword, order, setOrder } = this.props
 
         return (
             <RepositoryListHeader
                 searchKeyword={searchKeyword}
                 setSearchKeyword={setSearchKeyword}
                 order={order}
-                open={open}
+                setOrder={setOrder}
             />
         )
     }
@@ -101,11 +95,11 @@ const RepositoryList = () => {
     })
 
     const navigate = useNavigate()
-    const pickerRef = useRef()
+    // const pickerRef = useRef()
 
-    function open() {
-        pickerRef.current.focus()
-    }
+    // function open() {
+    //     pickerRef.current.focus()
+    // }
 
     // function close() {
     //     pickerRef.current.blur()
@@ -113,23 +107,10 @@ const RepositoryList = () => {
 
     return (
         <>
-            <Picker
-                ref={pickerRef}
-                selectedValue={order}
-                onValueChange={(itemValue) => setOrder(itemValue)}
-            >
-                {orderingPrinciples.map((op) => (
-                    <Picker.Item
-                        key={op.label}
-                        label={op.label}
-                        value={op.value}
-                    />
-                ))}
-            </Picker>
             <RepositoryListContainer
                 repositories={repositories}
                 order={order}
-                open={open}
+                setOrder={setOrder}
                 searchKeyword={searchKeyword}
                 setSearchKeyword={setSearchKeyword}
                 navigate={navigate}
