@@ -60,7 +60,7 @@ const RepositoryItem = (props) => {
                 <Stat label="Reviews" count={props.reviewCount} />
                 <Stat label="Rating" count={props.ratingAverage} />
             </View>
-            {props.button ?? ''}
+            {props.button ?? <></>}
         </View>
     )
 }
