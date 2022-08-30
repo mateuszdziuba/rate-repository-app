@@ -3,11 +3,11 @@ import { DELETE_REVIEW } from '../graphql/mutations'
 
 const useDeleteReview = () => {
     const apolloClient = useApolloClient()
-    const [deleteReview, result] = useMutation(DELETE_REVIEW)
+    const [deleteReview] = useMutation(DELETE_REVIEW)
 
     const handleDeleteReview = async (id) => {
-      await deleteReview({variables: { deleteReviewId: id }})
-      apolloClient.resetStore()
+        await deleteReview({ variables: { deleteReviewId: id } })
+        apolloClient.resetStore()
     }
 
     return handleDeleteReview

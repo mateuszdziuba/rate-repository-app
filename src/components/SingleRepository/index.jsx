@@ -99,7 +99,18 @@ export const ReviewItem = ({ review, my = false }) => {
                             Alert.alert(
                                 'Delete review',
                                 'Are you sure you want to delete this review?',
-                                ['Cancel', 'Delete']
+                                [
+                                    {
+                                        text: 'Cancel',
+                                        onPress: () =>
+                                            console.log('cancel pressd'),
+                                        style: 'cancel',
+                                    },
+                                    {
+                                        text: 'Delete',
+                                        onPress: () => deleteReview(id),
+                                    },
+                                ]
                             )
                         }
                     />
