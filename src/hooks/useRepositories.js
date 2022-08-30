@@ -24,8 +24,6 @@ const useRepositories = (variables) => {
 
     // return { repositories, loading, refetch: fetchRepositories };
 
-    console.log(variables && { variables })
-
     const { data, loading, fetchMore, ...result } = useQuery(GET_REPOSITORIES, {
         fetchPolicy: 'cache-and-network',
         ...(variables && { variables }),
@@ -33,23 +31,24 @@ const useRepositories = (variables) => {
 
     const handleFetchMore = () => {
         const canFetchMore = !loading && data?.repositories.pageInfo.hasNextPage
-        
+
         if (!canFetchMore) {
-            return;
+            return
         }
 
-        fetchMore({ variables: {
-            after: data.repositories.pageInfo.endCursor,
-            ...variables
-        }})
+        fetchMore({
+            variables: {
+                after: data.repositories.pageInfo.endCursor,
+                ...variables,
+            },
+        })
     }
-
 
     return {
         repositories: data?.repositories,
         fetchMore: handleFetchMore,
         loading,
-        ...result
+        ...result,
     }
 }
 

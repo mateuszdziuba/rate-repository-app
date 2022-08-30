@@ -87,7 +87,12 @@ export const ReviewItem = ({ review, my = false }) => {
                 </View>
             </View>
             {my && (
-                <View style={{ display: 'flex', flexDirection: 'row' }}>
+                <View
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                    }}
+                >
                     <Button
                         label="View repository"
                         onPress={() => navigate(`/${repositoryId}`)}
@@ -102,8 +107,6 @@ export const ReviewItem = ({ review, my = false }) => {
                                 [
                                     {
                                         text: 'Cancel',
-                                        onPress: () =>
-                                            console.log('cancel pressd'),
                                         style: 'cancel',
                                     },
                                     {
@@ -113,6 +116,7 @@ export const ReviewItem = ({ review, my = false }) => {
                                 ]
                             )
                         }
+                        // style={styles.col}
                     />
                 </View>
             )}

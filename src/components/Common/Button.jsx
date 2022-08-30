@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 5,
         textAlign: 'center',
+        flexGrow: 1,
     },
     buttonText: {
         color: 'white',

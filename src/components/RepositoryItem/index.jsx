@@ -40,8 +40,6 @@ const styles = StyleSheet.create({
 })
 
 const RepositoryItem = (props) => {
-    const location = useLocation()
-    console.log(location.pathname)
     return (
         <View testID="repositoryItem" style={styles.box}>
             <View style={styles.upperSection}>
