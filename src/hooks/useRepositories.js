@@ -26,15 +26,30 @@ const useRepositories = (variables) => {
 
     console.log(variables && { variables })
 
-    const { data, error, loading } = useQuery(GET_REPOSITORIES, {
+    const { data, loading, fetchMore, ...result } = useQuery(GET_REPOSITORIES, {
         fetchPolicy: 'cache-and-network',
         ...(variables && { variables }),
     })
 
+    const handleFetchMore = () => {
+        const canFetchMore = !loading && data?.repositories.pageInfo.hasNextPage
+        
+        if (!canFetchMore) {
+            return;
+        }
+
+        fetchMore({ variables: {
+            after: data.repositories.pageInfo.endCursor,
+            ...variables
+        }})
+    }
+
+
     return {
-        repositories: data ? data.repositories : undefined,
-        error,
+        repositories: data?.repositories,
+        fetchMore: handleFetchMore,
         loading,
+        ...result
     }
 }
 

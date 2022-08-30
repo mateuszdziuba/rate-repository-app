@@ -1,13 +1,14 @@
 import RepositoryItem from '../RepositoryItem'
 import * as Linking from 'expo-linking'
-import { StyleSheet, View, FlatList } from 'react-native'
-import { useParams } from 'react-router-native'
+import { StyleSheet, View, FlatList, Alert } from 'react-native'
+import { useNavigate, useParams } from 'react-router-native'
 import useRepository from '../../hooks/useRepository'
 import useReviews from '../../hooks/useReviews'
 import theme from '../../theme'
 import Button from '../Common/Button'
 import Text from '../Text'
 import ItemSeparator from '../Common/ItemSeparator'
+import useDeleteReview from '../../hooks/useDeleteReview'
 
 const RepositoryInfo = ({ repository }) => (
     <RepositoryItem
@@ -25,6 +26,8 @@ const styles = StyleSheet.create({
     box: {
         backgroundColor: '#fff',
         padding: 14,
+    },
+    reviewBox: {
         display: 'flex',
         flexDirection: 'row',
         fontFamily: theme.fonts.main,
@@ -57,16 +60,20 @@ const styles = StyleSheet.create({
     },
 })
 
-const ReviewItem = ({ review }) => {
-    const { text, user, createdAt, rating } = review
+export const ReviewItem = ({ review, my = false }) => {
+    const { id, repositoryId, text, user, createdAt, rating } = review
+    const navigate = useNavigate()
+    const deleteReview = useDeleteReview()
     return (
         <View style={styles.box}>
+            <View style={styles.reviewBox}>
+
             <View style={styles.innerLeft}>
                 <Text>{rating}</Text>
             </View>
             <View style={styles.innerRight}>
                 <Text fontWeight="bold" style={styles.user}>
-                    {user.username}
+                    {my ? repositoryId : user?.username}
                 </Text>
                 <Text
                     fontSize="subheading"
@@ -79,6 +86,11 @@ const ReviewItem = ({ review }) => {
                     <Text>{text}</Text>
                 </View>
             </View>
+            </View>
+            {my &&
+            <View style={{ display: 'flex', flexDirection: 'row'}}>
+             <Button label="View repository" onPress={() => navigate(`/${repositoryId}`)} /><Button label="Delete review" color="red" onPress={() => Alert.alert('Delete review', 'Are you sure you want to delete this review?', ['Cancel', 'Delete'])} />
+            </View>}
         </View>
     )
 }
@@ -86,7 +98,11 @@ const ReviewItem = ({ review }) => {
 const SingleRepository = () => {
     const { repoId } = useParams()
     const { repository } = useRepository(repoId)
-    const { reviews } = useReviews(repoId)
+    const { reviews, fetchMore } = useReviews({  repositoryId: repoId, first: 3 })
+
+    const onEndReach = () => {
+        fetchMore()
+    }
 
     return (
         <FlatList
@@ -100,6 +116,8 @@ const SingleRepository = () => {
                 </View>
             )}
             ItemSeparatorComponent={ItemSeparator}
+            onEndReached={onEndReach}
+            onEndReachedThreshold={0.5}
         />
     )
 }

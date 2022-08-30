@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 })
 
 const AppBar = () => {
-    const user = useUser()
+    const { data } = useUser()
     const signOut = useSignOut()
 
     return (
@@ -32,10 +32,13 @@ const AppBar = () => {
                 <Link to="/">
                     <Text style={styles.menuItem}>Repositories</Text>
                 </Link>
-                {user?.me ? (
+                {data?.me ? (
                     <>
                         <Link to="review">
                             <Text style={styles.menuItem}>Create a review</Text>
+                        </Link>
+                        <Link to="myreviews">
+                            <Text style={styles.menuItem}>My reviews</Text>
                         </Link>
                         <Pressable onPress={signOut}>
                             <Text style={styles.menuItem}>Sign out</Text>

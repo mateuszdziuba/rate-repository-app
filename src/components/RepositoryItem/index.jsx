@@ -1,4 +1,5 @@
 import { Image, StyleSheet, View } from 'react-native'
+import { useLocation } from 'react-router-native'
 import theme from '../../theme'
 import Stat from '../RepositoryList/Stat'
 import Text from '../Text'
@@ -39,6 +40,8 @@ const styles = StyleSheet.create({
 })
 
 const RepositoryItem = (props) => {
+    const location = useLocation()
+    console.log(location.pathname)
     return (
         <View testID="repositoryItem" style={styles.box}>
             <View style={styles.upperSection}>

@@ -8,6 +8,7 @@ import SignIn from './components/SignIn'
 import SingleRepository from './components/SingleRepository'
 import Review from './components/ReviewForm'
 import SignUp from './components/SignUp'
+import MyReviews from './components/MyReviews'
 
 SingleRepository
 
@@ -29,6 +30,7 @@ const Main = () => {
                 <Route path="/signin" element={<SignIn />} exact />
                 <Route path="/signup" element={<SignUp />} exact />
                 <Route path="/review" element={<Review />} exact />
+                <Route path="/myreviews" element={<MyReviews />} exact />
                 <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
         </View>

@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 })
 
 const Button = (props) => (
-    <Pressable style={styles.button} {...props}>
+    <Pressable style={{...styles.button , ...(props.color && {backgroundColor: props.color})}} {...props}>
         <Text style={styles.buttonText}>{props.label}</Text>
     </Pressable>
 )

@@ -5,11 +5,15 @@ export const GET_REPOSITORIES = gql`
         $orderBy: AllRepositoriesOrderBy
         $orderDirection: OrderDirection
         $searchKeyword: String
+        $after: String
+        $first: Int
     ) {
         repositories(
             orderBy: $orderBy
             orderDirection: $orderDirection
             searchKeyword: $searchKeyword
+            after: $after
+            first: $first
         ) {
             edges {
                 node {
@@ -23,7 +27,12 @@ export const GET_REPOSITORIES = gql`
                     forksCount
                     language
                 }
+                cursor
             }
+            pageInfo {
+                hasNextPage
+                endCursor
+              }
         }
     }
 `
@@ -46,10 +55,10 @@ export const GET_REPOSITORY = gql`
 `
 
 export const GET_REVIEWS = gql`
-    query ($repositoryId: ID!) {
+    query ($repositoryId: ID! $after: String $first: Int) {
         repository(id: $repositoryId) {
             id
-            reviews {
+            reviews(after: $after first: $first) {
                 edges {
                     node {
                         id
@@ -61,17 +70,43 @@ export const GET_REVIEWS = gql`
                             username
                         }
                     }
+                    cursor
                 }
+                pageInfo {
+                    hasNextPage
+                    endCursor
+                  }
             }
         }
     }
 `
 
 export const ME = gql`
-    query {
+    query getCurrentUser($includeReviews: Boolean = false){
         me {
             id
             username
+            reviews @include(if: $includeReviews) {
+                edges {
+                    node {
+                        id
+                        repositoryId
+                        text
+                        rating
+                        createdAt
+                        user {
+                            id
+                            username
+                        }
+                    }
+                    cursor
+                }
+                pageInfo {
+                    startCursor
+                    endCursor
+                    hasNextPage
+                }
+            }
         }
     }
 `
