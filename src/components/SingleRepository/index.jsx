@@ -67,30 +67,44 @@ export const ReviewItem = ({ review, my = false }) => {
     return (
         <View style={styles.box}>
             <View style={styles.reviewBox}>
-
-            <View style={styles.innerLeft}>
-                <Text>{rating}</Text>
-            </View>
-            <View style={styles.innerRight}>
-                <Text fontWeight="bold" style={styles.user}>
-                    {my ? repositoryId : user?.username}
-                </Text>
-                <Text
-                    fontSize="subheading"
-                    color="secondary"
-                    style={styles.date}
-                >
-                    {createdAt}
-                </Text>
-                <View>
-                    <Text>{text}</Text>
+                <View style={styles.innerLeft}>
+                    <Text>{rating}</Text>
+                </View>
+                <View style={styles.innerRight}>
+                    <Text fontWeight="bold" style={styles.user}>
+                        {my ? repositoryId : user?.username}
+                    </Text>
+                    <Text
+                        fontSize="subheading"
+                        color="secondary"
+                        style={styles.date}
+                    >
+                        {createdAt}
+                    </Text>
+                    <View>
+                        <Text>{text}</Text>
+                    </View>
                 </View>
             </View>
-            </View>
-            {my &&
-            <View style={{ display: 'flex', flexDirection: 'row'}}>
-             <Button label="View repository" onPress={() => navigate(`/${repositoryId}`)} /><Button label="Delete review" color="red" onPress={() => Alert.alert('Delete review', 'Are you sure you want to delete this review?', ['Cancel', 'Delete'])} />
-            </View>}
+            {my && (
+                <View style={{ display: 'flex', flexDirection: 'row' }}>
+                    <Button
+                        label="View repository"
+                        onPress={() => navigate(`/${repositoryId}`)}
+                    />
+                    <Button
+                        label="Delete review"
+                        color="red"
+                        onPress={() =>
+                            Alert.alert(
+                                'Delete review',
+                                'Are you sure you want to delete this review?',
+                                ['Cancel', 'Delete']
+                            )
+                        }
+                    />
+                </View>
+            )}
         </View>
     )
 }
@@ -98,7 +112,10 @@ export const ReviewItem = ({ review, my = false }) => {
 const SingleRepository = () => {
     const { repoId } = useParams()
     const { repository } = useRepository(repoId)
-    const { reviews, fetchMore } = useReviews({  repositoryId: repoId, first: 3 })
+    const { reviews, fetchMore } = useReviews({
+        repositoryId: repoId,
+        first: 3,
+    })
 
     const onEndReach = () => {
         fetchMore()
